@@ -1,19 +1,52 @@
-# Welcome to your CDK Java project!
+## aws setup
+follow these steps to create the stack in the development account (************)
 
-You should explore the contents of this project. It demonstrates a CDK app with an instance of a stack (`SaveReceiptFunctionStack`)
-which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.
+### ~/.aws/credentials Changes
+Append your `~/.aws/credentials` with the following snippet
+```shell
+[receipts-dev]
+aws_access_key_id=your_aws_access_key_id
+aws_secret_access_key=your_aws_secret_access_key
+region=ap-southeast-2
+```
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+### ~/.aws/config  Changes
+Append your `~/.aws/config` with the following snippet
 
-It is a [Maven](https://maven.apache.org/) based project, so you can open this project with any Maven compatible Java IDE to build and run tests.
+```shell
+[profile receipts-dev]
+region=ap-southeast-2
+output=json
+account=::************ #main account
+role_arn=arn:aws:iam::************:role/OrganizationAccountAccessRole
+source_profile=default
+role_session_name=your_preferred_session_name
+```
+
+## Deployment
+```shell
+cd /path/to/save-receipt-function
+mvn clean package  
+cd save-receipts-cdk
+cdk bootstrap --profile receipts-dev
+cdk deploy --profile receipts-dev
+```
+
+## What will this create
+* VPC
+* 4 subnets (two private and two public)
+* Nat gateway
+* S3 bucket
+* Lambda function to save files in S3
+* Api gateway endpoint to allow clients call lambda as a rest endpoint.
+* Roles and policies to allow RestApi call lambda and lambda to put objects in S3
+
 
 ## Useful commands
 
- * `mvn package`     compile and run tests
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
+* `mvn package`     compile and run tests
+* `cdk ls`          list all stacks in the app
+* `cdk synth`       emits the synthesized CloudFormation template
+* `cdk deploy`      deploy this stack to your default AWS account/region
+* `cdk diff`        compare deployed stack with current state
+* `cdk docs`        open CDK documentation
