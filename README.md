@@ -1,5 +1,26 @@
+Simple lambda that accepts an JSON object (receipt model) and save it to S3. The lambda itself was is not the focus of this project. Rather, I wanted to focus on how to deploy the lambda using aws CDK.
+
+## Directory Structure
+```
+save-receipt-function
+  save-receipts-cdk
+    src
+      main
+        java
+          com.coffeebeans.cdk
+  save-receipts-lambda
+    src
+      main
+        java
+          lambda
+```
+
 ## aws setup
-follow these steps to create the stack in the development account (************)
+I'm using AWS organisation with management account and two other account:
+* development
+* production
+
+Follow these steps to create the stack in the development account (************).
 
 ### ~/.aws/credentials Changes
 Append your `~/.aws/credentials` with the following snippet
@@ -17,8 +38,8 @@ Append your `~/.aws/config` with the following snippet
 [profile receipts-dev]
 region=ap-southeast-2
 output=json
-account=::************ #main account
-role_arn=arn:aws:iam::************:role/OrganizationAccountAccessRole
+account=::************ # while ************ is management account
+role_arn=arn:aws:iam::************:role/OrganizationAccountAccessRole # while ************ is your development account 
 source_profile=default
 role_session_name=your_preferred_session_name
 ```

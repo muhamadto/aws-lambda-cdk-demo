@@ -1,6 +1,5 @@
 package com.coffeebeans.cdk.creators;
 
-import software.amazon.awscdk.core.Tags;
 import software.amazon.awscdk.services.ec2.Subnet;
 import software.amazon.awscdk.services.ec2.SubnetProps;
 import software.constructs.Construct;
