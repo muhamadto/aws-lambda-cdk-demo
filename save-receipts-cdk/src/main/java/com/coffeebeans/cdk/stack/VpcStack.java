@@ -59,7 +59,7 @@ public class VpcStack extends Stack {
   private Function createLambdaFunction(final Vpc vpc, final String env) {
     final String saveReceiptsHandler = "SaveReceiptsHandler";
     final String handler = "com.coffeebeans.lambda.SaveReceiptFunction";
-    final AssetCode assetCode = fromAsset("save-receipts-lambda/target/save-receipts-lambda-0.1.jar");
+    final AssetCode assetCode = fromAsset("save-receipts-lambda/target/save-receipts-lambda-0.0.1-SNAPSHOT.jar");
     final Function saveReceiptsFunction = createFunction(this, saveReceiptsHandler, handler, JAVA_11, assetCode, vpc);
 
     Tags.of(saveReceiptsFunction).add("env", env);
