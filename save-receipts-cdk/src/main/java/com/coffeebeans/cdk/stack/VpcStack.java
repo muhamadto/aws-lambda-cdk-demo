@@ -45,8 +45,6 @@ public class VpcStack extends Stack {
         .natGatewayProvider(NatProvider.gateway())
         .build();
 
-    Tags.of(vpc).add("env", env);
-
     final Function saveReceiptsHandler = createLambdaFunction(vpc, env);
 
     final Bucket bucket = createBucket(this, String.format("digital-receipts-%s", env), BLOCK_ALL, S3_MANAGED, false, false);
@@ -59,10 +57,9 @@ public class VpcStack extends Stack {
   private Function createLambdaFunction(final Vpc vpc, final String env) {
     final String saveReceiptsHandler = "SaveReceiptsHandler";
     final String handler = "com.coffeebeans.lambda.SaveReceiptFunction";
-    final AssetCode assetCode = fromAsset("save-receipts-lambda/target/save-receipts-lambda-0.0.1-SNAPSHOT.jar");
+    final AssetCode assetCode = fromAsset("../save-receipts-lambda/target/save-receipts-lambda-0.0.1-SNAPSHOT.jar");
     final Function saveReceiptsFunction = createFunction(this, saveReceiptsHandler, handler, JAVA_11, assetCode, vpc);
 
-    Tags.of(saveReceiptsFunction).add("env", env);
     return saveReceiptsFunction;
   }
 
