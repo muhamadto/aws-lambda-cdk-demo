@@ -1,5 +1,7 @@
 Simple lambda that accepts an JSON object (receipt model) and save it to S3. The lambda itself was is not the focus of this project. Rather, I wanted to focus on how to deploy the lambda using aws CDK.
 
+Read project description [here](https://muhamadto.github.io/aws-lambda-cdk-demo/)
+
 ## Directory Structure
 ```
 save-receipt-function
